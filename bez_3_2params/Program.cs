@@ -10,7 +10,7 @@ namespace bez_3_2params
 {
     class Program
     {
-        static void xi_finder(int n, out double xi1, out double xi2 )
+        static void xi_finder(int n, out double ksi1, out double ksi2 )
         {
             double t_i, x_i;
 
@@ -35,14 +35,14 @@ namespace bez_3_2params
             }
             
 
-            xi2 = (( A[ 1, 1 ] * F[ 1 ] - A[ 0, 1 ] * F[ 0 ] ) / ( A[ 1, 1 ] * A[ 1, 1 ] - A[ 0, 1 ] * A[ 0, 1 ] ));
-            xi1 = ( F[ 0 ] - A[ 0, 1 ] * xi2 ) / (A[ 1, 1 ]);
+            ksi2 = (( A[ 1, 1 ] * F[ 1 ] - A[ 0, 1 ] * F[ 0 ] ) / ( A[ 1, 1 ] * A[ 1, 1 ] - A[ 0, 1 ] * A[ 0, 1 ] ));
+            ksi1 = ( F[ 0 ] - A[ 0, 1 ] * ksi2 ) / (A[ 1, 1 ]);
 
         }
 
         private static double fun( double x )
         {
-            return Math.Sin(Math.PI*x)/1000;
+            return Math.Sin(Math.PI*x);
         }
 
         const int N = 100;
