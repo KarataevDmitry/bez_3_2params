@@ -54,7 +54,6 @@ namespace bez_3_2params
             xi_finder( n, out xi1, out xi2 );
             Console.WriteLine( $" xi1 = {xi1}" );
             Console.WriteLine( $" xi2 = {xi2}" );
-            integrate( xi1, xi2 );
             double t_i, x_i;
             double h = 1d / n;
 
@@ -76,14 +75,25 @@ namespace bez_3_2params
             }
             Console.WriteLine( $" z = {z}" );
             csv.ExportToFile( "data.csv" );
-            Console.WriteLine( $"int = {integrate( xi1, xi2 )}" );
+            Console.WriteLine( $"int = {integrate( xi1, xi2, 0, 1 )}" );
             Console.ReadLine();
         }
 
-        private static double integrate( double xi1, double xi2 )
+        private static double integrate( double xi1, double xi2, double start, double end )
         {
-            var intg = 6*xi1/4+2*xi1+3*xi1/2+xi2-0.25 * fun( 0 );
-            return intg;
+            int n = 100;
+            double h = ( end - start ) / n;
+            double s = 0;
+            double x = start + h;
+            while ( x < end )
+            {
+                s = s + 4 * bez3_point( x, fun(0), xi1, xi2, fun(1) );
+                x = x + h;
+                s = s + 2 * bez3_point( x, fun( 0 ), xi1, xi2, fun( 1 ) );
+                x = x + h;
+            }
+            s = h / 3 * ( s + bez3_point(start, fun( 0 ), xi1, xi2, fun( 1 ) ) - bez3_point( end, fun( 0 ), xi1, xi2, fun( 1 ) ) );
+            return s;
         }
 
         private static double bez3_point( double t, double P0, double P1, double P2, double P3 )
